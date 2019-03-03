@@ -17,7 +17,8 @@ in pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    ghc -o async-test async-test.hs
+    ghc -threaded -rtsopts -with-rtsopts="-N" \
+      -o async-test async-test.hs
     install -D -m555 -t $out/bin async-test
   '';
 }
